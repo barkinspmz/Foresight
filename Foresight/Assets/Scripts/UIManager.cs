@@ -4,6 +4,9 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
+    public delegate void ClickResetAll();
+    public event ClickResetAll resetAll;
+
     public Image[] uiInputLockedImages;
 
     public Sprite LeftArrowKey;
@@ -11,8 +14,10 @@ public class UIManager : MonoBehaviour
     public Sprite SpaceButtonImage;
 
     public Sprite emptyImage;
-
+    public Sprite isNotEmptyImage;
+    
     public Image OutlineForInputHandleUI;
+    private Vector3 outlineStartPos;
     private void Awake()
     {
         Instance = this;
@@ -20,6 +25,11 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         AdjustUI();
+
+        resetAll += ClearAllImages;
+        resetAll += ResetOutlinePosition;
+
+        outlineStartPos = OutlineForInputHandleUI.rectTransform.anchoredPosition;
     }
 
     private void AdjustUI()
@@ -33,5 +43,29 @@ public class UIManager : MonoBehaviour
     public void ChangeOutlinePosition()
     {
         OutlineForInputHandleUI.rectTransform.anchoredPosition = new Vector3(OutlineForInputHandleUI.rectTransform.anchoredPosition.x + 110, OutlineForInputHandleUI.rectTransform.anchoredPosition.y, OutlineForInputHandleUI.rectTransform.position.z);
+    }
+
+    private void ClearAllImages()
+    {
+        for (int i = 0; i < uiInputLockedImages.Length; i++)
+        {
+            uiInputLockedImages[i].sprite = isNotEmptyImage;
+        }
+
+        for (int i = 0; i < LevelRequirements.Instance.howManyInputPlayerCanPress; i++)
+        {
+            uiInputLockedImages[i].sprite = emptyImage;
+        }
+    }
+
+    private void ResetOutlinePosition()
+    {
+        OutlineForInputHandleUI.rectTransform.anchoredPosition = outlineStartPos;
+        OutlineForInputHandleUI.enabled = true;
+    }
+
+    public void Clear()
+    {
+        resetAll();
     }
 }

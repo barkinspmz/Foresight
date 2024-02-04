@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class InputHolder : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class InputHolder : MonoBehaviour
     private void Start()
     {
         _inputs = new InputTypes[LevelRequirements.Instance.howManyInputPlayerCanPress];
+        UIManager.Instance.resetAll += ClearAllInputs;
     }
     void Update()
     {
@@ -42,7 +44,7 @@ public class InputHolder : MonoBehaviour
 
             if (_currentIndex >= LevelRequirements.Instance.howManyInputPlayerCanPress)
             {
-                Destroy(UIManager.Instance.OutlineForInputHandleUI);
+                UIManager.Instance.OutlineForInputHandleUI.enabled = false;
             }
         }
 
@@ -61,5 +63,10 @@ public class InputHolder : MonoBehaviour
                 Destroy(UIManager.Instance.OutlineForInputHandleUI);
             }
         }
+    }
+
+    private void ClearAllInputs()
+    {
+        _currentIndex = 0;
     }
 }
