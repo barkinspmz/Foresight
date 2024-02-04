@@ -6,10 +6,13 @@ public class UIManager : MonoBehaviour
 
     public Image[] uiInputLockedImages;
 
-    public Image LeftArrowKey;
-    public Image RightArrowKey;
-    public Image SpaceButtonImage;
+    public Sprite LeftArrowKey;
+    public Sprite RightArrowKey;
+    public Sprite SpaceButtonImage;
 
+    public Sprite emptyImage;
+
+    public Image OutlineForInputHandleUI;
     private void Awake()
     {
         Instance = this;
@@ -23,7 +26,12 @@ public class UIManager : MonoBehaviour
     {
         for (int i = 0; i < LevelRequirements.Instance.howManyInputPlayerCanPress; i++)
         {
-            uiInputLockedImages[0] = null;
+            uiInputLockedImages[i].sprite = emptyImage;
         }
+    }
+
+    public void ChangeOutlinePosition()
+    {
+        OutlineForInputHandleUI.rectTransform.anchoredPosition = new Vector3(OutlineForInputHandleUI.rectTransform.anchoredPosition.x + 110, OutlineForInputHandleUI.rectTransform.anchoredPosition.y, OutlineForInputHandleUI.rectTransform.position.z);
     }
 }
