@@ -28,7 +28,7 @@ public class InputHolder : MonoBehaviour
 
             if (_currentIndex >= LevelRequirements.Instance.howManyInputPlayerCanPress)
             {
-                Destroy(UIManager.Instance.OutlineForInputHandleUI);
+                UIManager.Instance.OutlineForInputHandleUI.enabled = false;
             }
         }
 
@@ -60,7 +60,7 @@ public class InputHolder : MonoBehaviour
 
             if (_currentIndex >= LevelRequirements.Instance.howManyInputPlayerCanPress)
             {
-                Destroy(UIManager.Instance.OutlineForInputHandleUI);
+                UIManager.Instance.OutlineForInputHandleUI.enabled = false;
             }
         }
     }
