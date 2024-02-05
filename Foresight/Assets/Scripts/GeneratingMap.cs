@@ -10,12 +10,12 @@ public class GeneratingMap : MonoBehaviour
     
     public void GenerateMap()
     {
-        Instantiate( _prefabBlock, _currentPos, Quaternion.identity);
+        var parentObj = GameObject.Find("GeneratedBlocks");
+        Instantiate( _prefabBlock, _currentPos, Quaternion.identity,parentObj.transform);
         _currentPos += _distanceBetweenBlocks;
-
         for (int i = 0; i < _howManyBlockWillCreate; i++)
         {
-            Instantiate(_prefabBlock, _currentPos, Quaternion.identity);
+            Instantiate(_prefabBlock, _currentPos, Quaternion.identity,parentObj.transform);
             _currentPos += _distanceBetweenBlocks;
         }
     }
