@@ -6,12 +6,12 @@ public class InputHolder : MonoBehaviour
     private int _maxInputIndex;
     [SerializeField] private int _currentIndex;
 
-    private enum InputTypes { Left, Right, Jump}
-    private InputTypes[] _inputs;
+    public enum InputTypes { Left, Right, Jump}
+    public InputTypes[] inputs;
 
     private void Start()
     {
-        _inputs = new InputTypes[LevelRequirements.Instance.howManyInputPlayerCanPress];
+        inputs = new InputTypes[LevelRequirements.Instance.howManyInputPlayerCanPress];
         UIManager.Instance.resetAll += ClearAllInputs;
     }
     void Update()
@@ -20,7 +20,7 @@ public class InputHolder : MonoBehaviour
         {
             if (_currentIndex < LevelRequirements.Instance.howManyInputPlayerCanPress)
             {
-                _inputs[_currentIndex] = InputTypes.Left;
+                inputs[_currentIndex] = InputTypes.Left;
                 UIManager.Instance.uiInputLockedImages[_currentIndex].sprite = UIManager.Instance.LeftArrowKey;
                 _currentIndex++;
                 UIManager.Instance.ChangeOutlinePosition();
@@ -36,7 +36,7 @@ public class InputHolder : MonoBehaviour
         {
             if (_currentIndex < LevelRequirements.Instance.howManyInputPlayerCanPress )
             {
-                _inputs[_currentIndex] = InputTypes.Right;
+                inputs[_currentIndex] = InputTypes.Right;
                 UIManager.Instance.uiInputLockedImages[_currentIndex].sprite = UIManager.Instance.RightArrowKey;
                 _currentIndex++;
                 UIManager.Instance.ChangeOutlinePosition();
@@ -52,7 +52,7 @@ public class InputHolder : MonoBehaviour
         {
             if (_currentIndex < LevelRequirements.Instance.howManyInputPlayerCanPress)
             {
-                _inputs[_currentIndex] = InputTypes.Jump;
+                inputs[_currentIndex] = InputTypes.Jump;
                 UIManager.Instance.uiInputLockedImages[_currentIndex].sprite = UIManager.Instance.SpaceButtonImage;
                 _currentIndex++;
                 UIManager.Instance.ChangeOutlinePosition();
