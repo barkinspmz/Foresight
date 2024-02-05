@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UIElements;
-
+using UnityEngine.UI;
 public class InputHolder : MonoBehaviour
 {
     private int _maxInputIndex;
@@ -9,10 +9,15 @@ public class InputHolder : MonoBehaviour
     public enum InputTypes { Left, Right, Jump}
     public InputTypes[] inputs;
 
+    private GameObject _goButton;
+
+    public bool isInputsFilled;
     private void Start()
     {
         inputs = new InputTypes[LevelRequirements.Instance.howManyInputPlayerCanPress];
         UIManager.Instance.resetAll += ClearAllInputs;
+        _goButton = GameObject.Find("GoButton");
+        isInputsFilled = false;
     }
     void Update()
     {
@@ -29,6 +34,9 @@ public class InputHolder : MonoBehaviour
             if (_currentIndex >= LevelRequirements.Instance.howManyInputPlayerCanPress)
             {
                 UIManager.Instance.OutlineForInputHandleUI.enabled = false;
+                _goButton.GetComponent<Animator>().SetTrigger("Go");
+                _goButton.GetComponent<UnityEngine.UI.Button>().interactable = true;
+                isInputsFilled = true;
             }
         }
 
@@ -45,6 +53,9 @@ public class InputHolder : MonoBehaviour
             if (_currentIndex >= LevelRequirements.Instance.howManyInputPlayerCanPress)
             {
                 UIManager.Instance.OutlineForInputHandleUI.enabled = false;
+                _goButton.GetComponent<Animator>().SetTrigger("Go");
+                _goButton.GetComponent<UnityEngine.UI.Button>().interactable = true;
+                isInputsFilled = true;
             }
         }
 
@@ -61,6 +72,9 @@ public class InputHolder : MonoBehaviour
             if (_currentIndex >= LevelRequirements.Instance.howManyInputPlayerCanPress)
             {
                 UIManager.Instance.OutlineForInputHandleUI.enabled = false;
+                _goButton.GetComponent<Animator>().SetTrigger("Go");
+                _goButton.GetComponent<UnityEngine.UI.Button>().interactable = true;
+                isInputsFilled = true;
             }
         }
     }
@@ -68,5 +82,6 @@ public class InputHolder : MonoBehaviour
     private void ClearAllInputs()
     {
         _currentIndex = 0;
+        isInputsFilled = false;
     }
 }

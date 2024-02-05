@@ -18,6 +18,8 @@ public class UIManager : MonoBehaviour
     
     public Image OutlineForInputHandleUI;
     private Vector3 outlineStartPos;
+
+    private InputHolder _inputHolder;
     private void Awake()
     {
         Instance = this;
@@ -30,6 +32,8 @@ public class UIManager : MonoBehaviour
         resetAll += ResetOutlinePosition;
 
         outlineStartPos = OutlineForInputHandleUI.rectTransform.anchoredPosition;
+
+        _inputHolder = GameObject.Find("InputHolder").GetComponent<InputHolder>();
     }
 
     private void AdjustUI()

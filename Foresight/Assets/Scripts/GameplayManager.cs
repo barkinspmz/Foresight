@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameplayManager : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class GameplayManager : MonoBehaviour
 
     private InputHolder _inputHolder;
     private PlayerMovement _playerMovement;
-    private AnimationCharacter _characterAnimation;
+    private GameObject _goButton;
 
     [SerializeField] private float _timeBetweenMovements;
     private void Awake()
@@ -31,12 +32,15 @@ public class GameplayManager : MonoBehaviour
     {
         _inputHolder = GameObject.Find("InputHolder").GetComponent<InputHolder>();
         _playerMovement = GameObject.Find("PlayerObj").GetComponent<PlayerMovement>();
+        _goButton = GameObject.Find("GoButton");
     }
 
     public void MovementBasedOnInput()
     {
         if (_inputHolder != null)
         {
+            _goButton.GetComponent<Button>().interactable = false;
+            _goButton.GetComponent<Animator>().SetTrigger("Out");
             StartCoroutine(MovementFromTakenInput());
             _playerMovement._isGameStarted = true;
         }
