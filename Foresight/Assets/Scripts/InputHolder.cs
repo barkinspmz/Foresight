@@ -12,6 +12,8 @@ public class InputHolder : MonoBehaviour
     private GameObject _goButton;
 
     public bool isInputsFilled;
+
+    public ParticleSystem[] particles = new ParticleSystem[11];
     private void Start()
     {
         inputs = new InputTypes[LevelRequirements.Instance.howManyInputPlayerCanPress];
@@ -29,6 +31,7 @@ public class InputHolder : MonoBehaviour
                 UIManager.Instance.uiInputLockedImages[_currentIndex].sprite = UIManager.Instance.LeftArrowKey;
                 _currentIndex++;
                 UIManager.Instance.ChangeOutlinePosition();
+                particles[_currentIndex].Play();
             }
 
             if (_currentIndex >= LevelRequirements.Instance.howManyInputPlayerCanPress)
@@ -48,6 +51,7 @@ public class InputHolder : MonoBehaviour
                 UIManager.Instance.uiInputLockedImages[_currentIndex].sprite = UIManager.Instance.RightArrowKey;
                 _currentIndex++;
                 UIManager.Instance.ChangeOutlinePosition();
+                particles[_currentIndex].Play();
             }
 
             if (_currentIndex >= LevelRequirements.Instance.howManyInputPlayerCanPress)
@@ -67,6 +71,7 @@ public class InputHolder : MonoBehaviour
                 UIManager.Instance.uiInputLockedImages[_currentIndex].sprite = UIManager.Instance.SpaceButtonImage;
                 _currentIndex++;
                 UIManager.Instance.ChangeOutlinePosition();
+                particles[_currentIndex].Play();
             }
 
             if (_currentIndex >= LevelRequirements.Instance.howManyInputPlayerCanPress)
