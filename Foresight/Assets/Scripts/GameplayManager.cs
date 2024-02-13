@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,17 +13,29 @@ public class GameplayManager : MonoBehaviour
     public delegate void MoveRightSide();
     public event MoveRightSide moveRight;
 
-    public delegate void MoveJump();
-    public event MoveJump moveJump;
+    public delegate void MoveUp();
+    public event MoveUp moveUp;
+
+    public delegate void MoveDown();
+    public event MoveDown moveDown;
 
     public delegate void DeadCondition();
     public event DeadCondition deadCondition;
+
+    public delegate void UnlockThePortal();
+    public event UnlockThePortal UnlockPortal;
 
     private InputHolder _inputHolder;
     private PlayerMovement _playerMovement;
     private GameObject _goButton;
 
     [SerializeField] private float _timeBetweenMovements;
+
+    private int _currentIndex;
+
+    public bool isLockUnlocked;
+
+    private Animator cinemachineCamAnim;
     private void Awake()
     {
         Instance = this;
@@ -33,6 +46,10 @@ public class GameplayManager : MonoBehaviour
         _inputHolder = GameObject.Find("InputHolder").GetComponent<InputHolder>();
         _playerMovement = GameObject.Find("PlayerObj").GetComponent<PlayerMovement>();
         _goButton = GameObject.Find("GoButton");
+        isLockUnlocked = false;
+
+        var cineCam = GameObject.Find("VirtualCamera");
+        cinemachineCamAnim = cineCam.GetComponent<Animator>();
     }
 
     public void MovementBasedOnInput()
@@ -60,12 +77,39 @@ public class GameplayManager : MonoBehaviour
             {
                 case InputHolder.InputTypes.Left:
                     moveLeft();
+                    _currentIndex++;
+                    cinemachineCamAnim.SetTrigger("Shake");
+                    if (_currentIndex == LevelRequirements.Instance.howManyInputPlayerCanPress)
+                    {
+                        UnlockPortal();
+                    }
                     break;
                 case InputHolder.InputTypes.Right:
                     moveRight();
+                    _currentIndex++;
+                    cinemachineCamAnim.SetTrigger("Shake");
+                    if (_currentIndex == LevelRequirements.Instance.howManyInputPlayerCanPress)
+                    {
+                        UnlockPortal();
+                    }
                     break;
-                case InputHolder.InputTypes.Jump:
-                    moveJump();
+                case InputHolder.InputTypes.Up:
+                    moveUp();
+                    _currentIndex++;
+                    cinemachineCamAnim.SetTrigger("Shake");
+                    if (_currentIndex == LevelRequirements.Instance.howManyInputPlayerCanPress)
+                    {
+                        UnlockPortal();
+                    }
+                    break;
+                case InputHolder.InputTypes.Down:
+                    moveDown();
+                    _currentIndex++;
+                    cinemachineCamAnim.SetTrigger("Shake");
+                    if (_currentIndex == LevelRequirements.Instance.howManyInputPlayerCanPress)
+                    {
+                        UnlockPortal();
+                    }
                     break;
             }
             yield return new WaitForSeconds(_timeBetweenMovements);

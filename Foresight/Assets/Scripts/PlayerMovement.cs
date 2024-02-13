@@ -6,6 +6,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 _currentTargetPos;
     private Vector2 _goRight;
     private Vector2 _goLeft;
+    private Vector2 _goUp;
+    private Vector2 _goDown;
     private Rigidbody2D _rb;
 
     [SerializeField] private float movementSpeed;
@@ -14,18 +16,27 @@ public class PlayerMovement : MonoBehaviour
     public int currentPlatformerIndex;
     private bool _isGravityOpen;
     public bool _isGameStarted;
-    [SerializeField] private int _deadZonePlatformerIndex;
+
+    //If the currentIndex equals those values, the player's death condition.
+    [SerializeField] private int[] _deadZonePlatformerIndexSide;
+    [SerializeField] private int[] _deadZonePlatformerIndexTop;
+    [SerializeField] private int[] _deadZonePlatformerIndexDown;
+
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         _goLeft = new Vector2(-moveDistance, 0);
         _goRight = new Vector2(moveDistance, 0);
+        _goUp = new Vector2(0, moveDistance);
+        _goDown = new Vector2(0, -moveDistance);
         _currentTargetPos = transform.position;
         _isGravityOpen = false;
         _isGameStarted = false;
 
         GameplayManager.Instance.moveLeft += MoveLeft;
         GameplayManager.Instance.moveRight += MoveRight;
+        GameplayManager.Instance.moveUp += MoveUp;
+        GameplayManager.Instance.moveDown += MoveDown;
     }
 
     private void Update()
@@ -38,10 +49,13 @@ public class PlayerMovement : MonoBehaviour
     {
         _currentTargetPos += _goLeft;
         currentPlatformerIndex--;
-        if (currentPlatformerIndex<=0)
+        foreach (var index in _deadZonePlatformerIndexSide)
         {
-            StartCoroutine(DeadCondition());
-            GameplayManager.Instance.DiedCondition();
+            if (currentPlatformerIndex == index)
+            {
+                StartCoroutine(DeadCondition());
+                GameplayManager.Instance.DiedCondition();
+            }
         }
     }
 
@@ -49,16 +63,42 @@ public class PlayerMovement : MonoBehaviour
     {
         _currentTargetPos += _goRight;
         currentPlatformerIndex++;
-        if (currentPlatformerIndex == _deadZonePlatformerIndex)
+        foreach (var index in _deadZonePlatformerIndexSide)
         {
-            StartCoroutine(DeadCondition());
-            GameplayManager.Instance.DiedCondition();
+            if (currentPlatformerIndex == index)
+            {
+                StartCoroutine(DeadCondition());
+                GameplayManager.Instance.DiedCondition();
+            }
         }
     }
 
-    void Jump()
+    void MoveUp()
     {
+        _currentTargetPos += _goUp;
+        currentPlatformerIndex+=10;
+        foreach (var index in _deadZonePlatformerIndexTop)
+        {
+            if (currentPlatformerIndex == index)
+            {
+                StartCoroutine(DeadCondition());
+                GameplayManager.Instance.DiedCondition();
+            }
+        }
+    }
 
+    void MoveDown()
+    {
+        _currentTargetPos += _goDown;
+        currentPlatformerIndex -= 10;
+        foreach (var index in _deadZonePlatformerIndexDown)
+        {
+            if (currentPlatformerIndex == index)
+            {
+                StartCoroutine(DeadCondition());
+                GameplayManager.Instance.DiedCondition();
+            }
+        }
     }
 
     IEnumerator DeadCondition()

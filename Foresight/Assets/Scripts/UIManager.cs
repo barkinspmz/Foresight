@@ -11,7 +11,8 @@ public class UIManager : MonoBehaviour
 
     public Sprite LeftArrowKey;
     public Sprite RightArrowKey;
-    public Sprite SpaceButtonImage;
+    public Sprite UpArrowKey;
+    public Sprite DownArrowKey;
 
     public Sprite emptyImage;
     public Sprite isNotEmptyImage;

@@ -1,6 +1,8 @@
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
-
+using UnityEngine.UI;
 [CustomEditor(typeof(GeneratingMap))]
 public class GeneratingMapEditor : Editor
 {

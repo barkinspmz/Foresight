@@ -1,6 +1,6 @@
+using System;
 using UnityEngine;
 
-[System.Serializable]
 public class GeneratingMap : MonoBehaviour
 {
     [SerializeField] private GameObject _prefabBlock;

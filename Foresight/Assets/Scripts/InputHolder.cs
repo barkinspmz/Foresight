@@ -6,7 +6,7 @@ public class InputHolder : MonoBehaviour
     private int _maxInputIndex;
     [SerializeField] private int _currentIndex;
 
-    public enum InputTypes { Left, Right, Jump}
+    public enum InputTypes { Left, Right, Up, Down}
     public InputTypes[] inputs;
 
     private GameObject _goButton;
@@ -67,8 +67,28 @@ public class InputHolder : MonoBehaviour
         {
             if (_currentIndex < LevelRequirements.Instance.howManyInputPlayerCanPress)
             {
-                inputs[_currentIndex] = InputTypes.Jump;
-                UIManager.Instance.uiInputLockedImages[_currentIndex].sprite = UIManager.Instance.SpaceButtonImage;
+                inputs[_currentIndex] = InputTypes.Up;
+                UIManager.Instance.uiInputLockedImages[_currentIndex].sprite = UIManager.Instance.UpArrowKey;
+                _currentIndex++;
+                UIManager.Instance.ChangeOutlinePosition();
+                particles[_currentIndex].Play();
+            }
+
+            if (_currentIndex >= LevelRequirements.Instance.howManyInputPlayerCanPress)
+            {
+                UIManager.Instance.OutlineForInputHandleUI.enabled = false;
+                _goButton.GetComponent<Animator>().SetTrigger("Go");
+                _goButton.GetComponent<UnityEngine.UI.Button>().interactable = true;
+                isInputsFilled = true;
+            }
+        }
+
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            if (_currentIndex < LevelRequirements.Instance.howManyInputPlayerCanPress)
+            {
+                inputs[_currentIndex] = InputTypes.Down;
+                UIManager.Instance.uiInputLockedImages[_currentIndex].sprite = UIManager.Instance.DownArrowKey;
                 _currentIndex++;
                 UIManager.Instance.ChangeOutlinePosition();
                 particles[_currentIndex].Play();

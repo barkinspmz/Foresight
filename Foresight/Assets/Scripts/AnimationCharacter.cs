@@ -15,7 +15,8 @@ public class AnimationCharacter : MonoBehaviour
         _animator = GetComponent<Animator>();
         GameplayManager.Instance.moveLeft += MovementAnimLeft;
         GameplayManager.Instance.moveRight += MovementAnimRight;
-        GameplayManager.Instance.moveJump += MovementAnimJump;
+        GameplayManager.Instance.moveUp += MovementAnimRight;
+        GameplayManager.Instance.moveDown += MovementAnimLeft;
         GameplayManager.Instance.deadCondition += DeadAnim;
     }
 
@@ -27,11 +28,6 @@ public class AnimationCharacter : MonoBehaviour
     void MovementAnimRight()
     {
         if (_animator != null) { _animator.SetTrigger(animationNameGoRight); }
-    }
-
-    void MovementAnimJump()
-    {
-        if (_animator != null) { _animator.SetTrigger(animationNameJump); }
     }
 
     void DeadAnim()
