@@ -25,6 +25,9 @@ public class GameplayManager : MonoBehaviour
     public delegate void UnlockThePortal();
     public event UnlockThePortal UnlockPortal;
 
+    public delegate void ShootBullet();
+    public event ShootBullet ShootBullets;
+
     private InputHolder _inputHolder;
     private PlayerMovement _playerMovement;
     private GameObject _goButton;
@@ -36,6 +39,8 @@ public class GameplayManager : MonoBehaviour
     public bool isLockUnlocked;
 
     private Animator cinemachineCamAnim;
+
+    public int targetPlatformIndexToPassLevel;
     private void Awake()
     {
         Instance = this;
@@ -79,36 +84,68 @@ public class GameplayManager : MonoBehaviour
                     moveLeft();
                     _currentIndex++;
                     cinemachineCamAnim.SetTrigger("Shake");
+                    UIManager.Instance.infoText.text = "Input:" + _currentIndex;
+                    UIManager.Instance.infoIcon.sprite = UIManager.Instance.LeftArrowKey;
+                    UIManager.Instance.uiInputLockedImages[_currentIndex-1].sprite = UIManager.Instance.isNotEmptyImage;
+                    UIManager.Instance.infoInputAnim.SetTrigger("Go");
                     if (_currentIndex == LevelRequirements.Instance.howManyInputPlayerCanPress)
                     {
                         UnlockPortal();
+                        if (targetPlatformIndexToPassLevel != _playerMovement.currentPlatformerIndex)
+                        {
+                            deadCondition();
+                        }
                     }
                     break;
                 case InputHolder.InputTypes.Right:
                     moveRight();
                     _currentIndex++;
                     cinemachineCamAnim.SetTrigger("Shake");
+                    UIManager.Instance.infoText.text = "Input:" + _currentIndex;
+                    UIManager.Instance.infoIcon.sprite = UIManager.Instance.RightArrowKey;
+                    UIManager.Instance.uiInputLockedImages[_currentIndex-1].sprite = UIManager.Instance.isNotEmptyImage;
+                    UIManager.Instance.infoInputAnim.SetTrigger("Go");
                     if (_currentIndex == LevelRequirements.Instance.howManyInputPlayerCanPress)
                     {
                         UnlockPortal();
+                        if (targetPlatformIndexToPassLevel != _playerMovement.currentPlatformerIndex)
+                        {
+                            deadCondition();
+                        }
                     }
                     break;
                 case InputHolder.InputTypes.Up:
                     moveUp();
                     _currentIndex++;
                     cinemachineCamAnim.SetTrigger("Shake");
+                    UIManager.Instance.infoText.text = "Input:" + _currentIndex;
+                    UIManager.Instance.infoIcon.sprite = UIManager.Instance.UpArrowKey;
+                    UIManager.Instance.uiInputLockedImages[_currentIndex-1].sprite = UIManager.Instance.isNotEmptyImage;
+                    UIManager.Instance.infoInputAnim.SetTrigger("Go");
                     if (_currentIndex == LevelRequirements.Instance.howManyInputPlayerCanPress)
                     {
                         UnlockPortal();
+                        if (targetPlatformIndexToPassLevel != _playerMovement.currentPlatformerIndex)
+                        {
+                            deadCondition();
+                        }
                     }
                     break;
                 case InputHolder.InputTypes.Down:
                     moveDown();
                     _currentIndex++;
                     cinemachineCamAnim.SetTrigger("Shake");
+                    UIManager.Instance.infoText.text = "Input:" + _currentIndex;
+                    UIManager.Instance.infoIcon.sprite = UIManager.Instance.DownArrowKey;
+                    UIManager.Instance.uiInputLockedImages[_currentIndex -1].sprite = UIManager.Instance.isNotEmptyImage;
+                    UIManager.Instance.infoInputAnim.SetTrigger("Go");
                     if (_currentIndex == LevelRequirements.Instance.howManyInputPlayerCanPress)
                     {
                         UnlockPortal();
+                        if (targetPlatformIndexToPassLevel != _playerMovement.currentPlatformerIndex)
+                        {
+                            deadCondition();
+                        }
                     }
                     break;
             }
@@ -116,4 +153,13 @@ public class GameplayManager : MonoBehaviour
         }
     }
     
+    public void ShootBulletInvoke()
+    {
+        ShootBullets();
+    }
+
+    public void DeadConditionInvoke()
+    {
+        deadCondition();
+    }
 }

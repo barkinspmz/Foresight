@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 public class UIManager : MonoBehaviour
@@ -16,11 +17,16 @@ public class UIManager : MonoBehaviour
 
     public Sprite emptyImage;
     public Sprite isNotEmptyImage;
-    
+
+    public Image infoIcon;
+    public TextMeshProUGUI infoText; 
+
     public Image OutlineForInputHandleUI;
     private Vector3 outlineStartPos;
 
     private InputHolder _inputHolder;
+
+    public Animator infoInputAnim;
     private void Awake()
     {
         Instance = this;

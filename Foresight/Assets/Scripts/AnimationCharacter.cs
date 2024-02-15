@@ -1,6 +1,7 @@
+using Cinemachine;
 using System.Collections;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class AnimationCharacter : MonoBehaviour
 {
     private Animator _animator;
@@ -10,6 +11,11 @@ public class AnimationCharacter : MonoBehaviour
 
     [SerializeField] private ParticleSystem deadExplosionParticle;
 
+    private Animator animatorDeadSceneChange;
+
+    [SerializeField] private CinemachineVirtualCamera _cam;
+
+
     void Start()
     {
         _animator = GetComponent<Animator>();
@@ -18,6 +24,9 @@ public class AnimationCharacter : MonoBehaviour
         GameplayManager.Instance.moveUp += MovementAnimRight;
         GameplayManager.Instance.moveDown += MovementAnimLeft;
         GameplayManager.Instance.deadCondition += DeadAnim;
+
+        var obj = GameObject.Find("DeadSceneChange");
+        animatorDeadSceneChange = obj.GetComponent<Animator>();
     }
 
     void MovementAnimLeft()
@@ -44,5 +53,10 @@ public class AnimationCharacter : MonoBehaviour
         }
         yield return new WaitForSeconds(0.4f);
         Instantiate(deadExplosionParticle, transform.position, Quaternion.identity);
+        _cam.Follow = null;
+        animatorDeadSceneChange.SetTrigger("Dead");
+        yield return new WaitForSeconds(1f);
+        var currentSceneIndex =SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex);
     }
 }
