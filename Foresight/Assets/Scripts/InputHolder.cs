@@ -29,9 +29,9 @@ public class InputHolder : MonoBehaviour
             {
                 inputs[_currentIndex] = InputTypes.Left;
                 UIManager.Instance.uiInputLockedImages[_currentIndex].sprite = UIManager.Instance.LeftArrowKey;
+                particles[_currentIndex].Play();
                 _currentIndex++;
                 UIManager.Instance.ChangeOutlinePosition();
-                particles[_currentIndex].Play();
             }
 
             if (_currentIndex >= LevelRequirements.Instance.howManyInputPlayerCanPress)
@@ -49,9 +49,9 @@ public class InputHolder : MonoBehaviour
             {
                 inputs[_currentIndex] = InputTypes.Right;
                 UIManager.Instance.uiInputLockedImages[_currentIndex].sprite = UIManager.Instance.RightArrowKey;
+                particles[_currentIndex].Play();
                 _currentIndex++;
                 UIManager.Instance.ChangeOutlinePosition();
-                particles[_currentIndex].Play();
             }
 
             if (_currentIndex >= LevelRequirements.Instance.howManyInputPlayerCanPress)
@@ -69,9 +69,9 @@ public class InputHolder : MonoBehaviour
             {
                 inputs[_currentIndex] = InputTypes.Up;
                 UIManager.Instance.uiInputLockedImages[_currentIndex].sprite = UIManager.Instance.UpArrowKey;
+                particles[_currentIndex].Play();
                 _currentIndex++;
                 UIManager.Instance.ChangeOutlinePosition();
-                particles[_currentIndex].Play();
             }
 
             if (_currentIndex >= LevelRequirements.Instance.howManyInputPlayerCanPress)
@@ -89,9 +89,9 @@ public class InputHolder : MonoBehaviour
             {
                 inputs[_currentIndex] = InputTypes.Down;
                 UIManager.Instance.uiInputLockedImages[_currentIndex].sprite = UIManager.Instance.DownArrowKey;
+                particles[_currentIndex].Play();
                 _currentIndex++;
                 UIManager.Instance.ChangeOutlinePosition();
-                particles[_currentIndex].Play();
             }
 
             if (_currentIndex >= LevelRequirements.Instance.howManyInputPlayerCanPress)

@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6540908577706179235
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1004420520780945096}
+  - component: {fileID: 3404646945806906749}
+  m_Layer: 0
+  m_Name: UIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1004420520780945096
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6540908577706179235}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3404646945806906749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6540908577706179235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ade39f91a5a809f43b466b1c70254b0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiInputLockedImages:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  LeftArrowKey: {fileID: 21300000, guid: 9e1f76e8c06506f4eb244a389fd88b7a, type: 3}
+  RightArrowKey: {fileID: 21300000, guid: 0ab2beabe5ef3794e90c2681216cb287, type: 3}
+  UpArrowKey: {fileID: 21300000, guid: 44aaa7dd82c320c4796d5a1dde931aa6, type: 3}
+  DownArrowKey: {fileID: 21300000, guid: 42a45872d6eebda4b95308721c5e10bb, type: 3}
+  emptyImage: {fileID: 8995154407686431259, guid: dbafa50e147f7e64cb492ab1b00ecf89, type: 3}
+  isNotEmptyImage: {fileID: -1993584067060802312, guid: e79ea20a32c20314aab284151c33c48a, type: 3}
+  infoIcon: {fileID: 0}
+  infoText: {fileID: 0}
+  OutlineForInputHandleUI: {fileID: 0}
+  infoInputAnim: {fileID: 0}

@@ -7932,6 +7932,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 317827e8f35e71e44b944e067c9c5e05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _closeTabButton: {fileID: 0}
 --- !u!4 &1960076247
 Transform:
   m_ObjectHideFlags: 0

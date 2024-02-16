@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private Vector2 _currentTargetPos;
+    public Vector2 currentTargetPos;
     private Vector2 _goRight;
     private Vector2 _goLeft;
     private Vector2 _goUp;
@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
         _goRight = new Vector2(moveDistance, 0);
         _goUp = new Vector2(0, moveDistance);
         _goDown = new Vector2(0, -moveDistance);
-        _currentTargetPos = transform.position;
+        currentTargetPos = transform.position;
         _isGravityOpen = false;
         _isGameStarted = false;
 
@@ -41,13 +41,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if(Vector2.Distance(transform.position,_currentTargetPos)>0.001f && !_isGravityOpen && _isGameStarted)
-        transform.position = Vector2.MoveTowards(transform.position, _currentTargetPos, Time.deltaTime * movementSpeed);
+        if(Vector2.Distance(transform.position,currentTargetPos)>0.001f && !_isGravityOpen && _isGameStarted)
+        transform.position = Vector2.MoveTowards(transform.position, currentTargetPos, Time.deltaTime * movementSpeed);
     }
 
     void MoveLeft()
     {
-        _currentTargetPos += _goLeft;
+        currentTargetPos += _goLeft;
         currentPlatformerIndex--;
         foreach (var index in _deadZonePlatformerIndexSide)
         {
@@ -61,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
 
     void MoveRight()
     {
-        _currentTargetPos += _goRight;
+        currentTargetPos += _goRight;
         currentPlatformerIndex++;
         foreach (var index in _deadZonePlatformerIndexSide)
         {
@@ -75,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
 
     void MoveUp()
     {
-        _currentTargetPos += _goUp;
+        currentTargetPos += _goUp;
         currentPlatformerIndex+=10;
         foreach (var index in _deadZonePlatformerIndexTop)
         {
@@ -89,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
 
     void MoveDown()
     {
-        _currentTargetPos += _goDown;
+        currentTargetPos += _goDown;
         currentPlatformerIndex -= 10;
         foreach (var index in _deadZonePlatformerIndexDown)
         {
