@@ -41,6 +41,8 @@ public class GameplayManager : MonoBehaviour
     private Animator cinemachineCamAnim;
 
     public int targetPlatformIndexToPassLevel;
+
+    private AudioManager _audioManager;
     private void Awake()
     {
         Instance = this;
@@ -51,8 +53,11 @@ public class GameplayManager : MonoBehaviour
         _inputHolder = GameObject.Find("InputHolder").GetComponent<InputHolder>();
         _playerMovement = GameObject.Find("PlayerObj").GetComponent<PlayerMovement>();
         _goButton = GameObject.Find("GoButton");
+        _audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         isLockUnlocked = false;
 
+        deadCondition += DeadSoundAndChangeSceneSound;
+        _audioManager.PlayAudioClip(_audioManager.SceneChangeLeftToRight);
         var cineCam = GameObject.Find("VirtualCamera");
         cinemachineCamAnim = cineCam.GetComponent<Animator>();
     }
@@ -61,6 +66,7 @@ public class GameplayManager : MonoBehaviour
     {
         if (_inputHolder != null)
         {
+            _audioManager.PlayAudioClip(_audioManager.goButtonClick);
             _goButton.GetComponent<Button>().interactable = false;
             _goButton.GetComponent<Animator>().SetTrigger("Out");
             StartCoroutine(MovementFromTakenInput());
@@ -84,6 +90,7 @@ public class GameplayManager : MonoBehaviour
                     moveLeft();
                     _currentIndex++;
                     cinemachineCamAnim.SetTrigger("Shake");
+                    _audioManager.PlayAudioClip(_audioManager.movementSound);
                     UIManager.Instance.infoText.text = "Input:" + _currentIndex;
                     UIManager.Instance.infoIcon.sprite = UIManager.Instance.LeftArrowKey;
                     UIManager.Instance.uiInputLockedImages[_currentIndex-1].sprite = UIManager.Instance.isNotEmptyImage;
@@ -101,6 +108,7 @@ public class GameplayManager : MonoBehaviour
                     moveRight();
                     _currentIndex++;
                     cinemachineCamAnim.SetTrigger("Shake");
+                    _audioManager.PlayAudioClip(_audioManager.movementSound);
                     UIManager.Instance.infoText.text = "Input:" + _currentIndex;
                     UIManager.Instance.infoIcon.sprite = UIManager.Instance.RightArrowKey;
                     UIManager.Instance.uiInputLockedImages[_currentIndex-1].sprite = UIManager.Instance.isNotEmptyImage;
@@ -118,6 +126,7 @@ public class GameplayManager : MonoBehaviour
                     moveUp();
                     _currentIndex++;
                     cinemachineCamAnim.SetTrigger("Shake");
+                    _audioManager.PlayAudioClip(_audioManager.movementSound);
                     UIManager.Instance.infoText.text = "Input:" + _currentIndex;
                     UIManager.Instance.infoIcon.sprite = UIManager.Instance.UpArrowKey;
                     UIManager.Instance.uiInputLockedImages[_currentIndex-1].sprite = UIManager.Instance.isNotEmptyImage;
@@ -135,6 +144,7 @@ public class GameplayManager : MonoBehaviour
                     moveDown();
                     _currentIndex++;
                     cinemachineCamAnim.SetTrigger("Shake");
+                    _audioManager.PlayAudioClip(_audioManager.movementSound);
                     UIManager.Instance.infoText.text = "Input:" + _currentIndex;
                     UIManager.Instance.infoIcon.sprite = UIManager.Instance.DownArrowKey;
                     UIManager.Instance.uiInputLockedImages[_currentIndex -1].sprite = UIManager.Instance.isNotEmptyImage;
@@ -161,5 +171,19 @@ public class GameplayManager : MonoBehaviour
     public void DeadConditionInvoke()
     {
         deadCondition();
+    }
+
+
+    private void DeadSoundAndChangeSceneSound()
+    {
+        StartCoroutine(DeadSoundNum());
+    }
+
+    IEnumerator DeadSoundNum()
+    {
+        yield return new WaitForSeconds(0.4f);
+        _audioManager.PlayAudioClip(_audioManager.deadSoundClip);
+        yield return new WaitForSeconds(0.2f);
+        _audioManager.PlayAudioClip(_audioManager.SceneChangeRightToLeft);
     }
 }

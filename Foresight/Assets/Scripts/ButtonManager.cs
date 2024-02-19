@@ -1,5 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using System.Collections;
+
 public class ButtonManager : MonoBehaviour
 {
     private GameObject _goButton;
@@ -8,8 +11,10 @@ public class ButtonManager : MonoBehaviour
 
     [SerializeField] private Animator _closeTabButton;
 
+    private AudioManager _audioManager;
     private void Start()
     {
+        _audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         _goButton = GameObject.Find("GoButton");
         _playerMovement = GameObject.Find("PlayerObj").GetComponent<PlayerMovement>();
         _inputHolder = GameObject.Find("InputHolder").GetComponent<InputHolder>();
@@ -31,5 +36,7 @@ public class ButtonManager : MonoBehaviour
     public void ClickingCloseTab()
     {
         _closeTabButton.SetTrigger("Back");
+        _audioManager.PlayAudioClip( _audioManager.movementSound);
     }
+
 }

@@ -10,8 +10,10 @@ public class Teleport : MonoBehaviour
 
     private bool lockForDoItTwice = false;
 
+    private AudioManager _audioManager;
     private void Start()
     {
+        _audioManager= GameObject.Find("AudioManager").GetComponent<AudioManager>();    
         var playerObj = GameObject.Find("PlayerObj");
         _pMovement = playerObj.GetComponent<PlayerMovement>();
     }
@@ -20,6 +22,7 @@ public class Teleport : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" && !lockForDoItTwice)
         {
+            _audioManager.PlayAudioClip(_audioManager.teleportationSound);
             StartCoroutine(TeleportNum(collision));
             lockForDoItTwice = true;
         }

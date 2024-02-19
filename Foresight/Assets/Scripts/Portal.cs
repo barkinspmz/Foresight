@@ -4,10 +4,12 @@ using UnityEngine.SceneManagement;
 public class Portal : MonoBehaviour
 {
     private Animator animator;
+    private AudioManager _audioManager;
     void Start()
     {
         var sceneChangerAnim = GameObject.Find("SceneChangeAnim");
         animator = sceneChangerAnim.GetComponent<Animator>();
+        _audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -20,6 +22,7 @@ public class Portal : MonoBehaviour
 
     IEnumerator SceneChangeNumerator()
     {
+        _audioManager.PlayAudioClip(_audioManager.passLevelSound);
         yield return new WaitForSeconds(0.2f);
         animator.SetTrigger("ChangeScene");
         yield return new WaitForSeconds(2f);

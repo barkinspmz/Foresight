@@ -14,11 +14,14 @@ public class InputHolder : MonoBehaviour
     public bool isInputsFilled;
 
     public ParticleSystem[] particles = new ParticleSystem[11];
+
+    private AudioManager _audioManager;
     private void Start()
     {
         inputs = new InputTypes[LevelRequirements.Instance.howManyInputPlayerCanPress];
         UIManager.Instance.resetAll += ClearAllInputs;
         _goButton = GameObject.Find("GoButton");
+        _audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         isInputsFilled = false;
     }
     void Update()
@@ -30,6 +33,7 @@ public class InputHolder : MonoBehaviour
                 inputs[_currentIndex] = InputTypes.Left;
                 UIManager.Instance.uiInputLockedImages[_currentIndex].sprite = UIManager.Instance.LeftArrowKey;
                 particles[_currentIndex].Play();
+                _audioManager.PlayAudioClip(_audioManager.giveInputClick);
                 _currentIndex++;
                 UIManager.Instance.ChangeOutlinePosition();
             }
@@ -39,6 +43,7 @@ public class InputHolder : MonoBehaviour
                 UIManager.Instance.OutlineForInputHandleUI.enabled = false;
                 _goButton.GetComponent<Animator>().SetTrigger("Go");
                 _goButton.GetComponent<UnityEngine.UI.Button>().interactable = true;
+                _audioManager.PlayAudioClip(_audioManager.goButtonFlick);
                 isInputsFilled = true;
             }
         }
@@ -50,6 +55,7 @@ public class InputHolder : MonoBehaviour
                 inputs[_currentIndex] = InputTypes.Right;
                 UIManager.Instance.uiInputLockedImages[_currentIndex].sprite = UIManager.Instance.RightArrowKey;
                 particles[_currentIndex].Play();
+                _audioManager.PlayAudioClip(_audioManager.giveInputClick);
                 _currentIndex++;
                 UIManager.Instance.ChangeOutlinePosition();
             }
@@ -59,6 +65,7 @@ public class InputHolder : MonoBehaviour
                 UIManager.Instance.OutlineForInputHandleUI.enabled = false;
                 _goButton.GetComponent<Animator>().SetTrigger("Go");
                 _goButton.GetComponent<UnityEngine.UI.Button>().interactable = true;
+                _audioManager.PlayAudioClip(_audioManager.goButtonFlick);
                 isInputsFilled = true;
             }
         }
@@ -70,6 +77,7 @@ public class InputHolder : MonoBehaviour
                 inputs[_currentIndex] = InputTypes.Up;
                 UIManager.Instance.uiInputLockedImages[_currentIndex].sprite = UIManager.Instance.UpArrowKey;
                 particles[_currentIndex].Play();
+                _audioManager.PlayAudioClip(_audioManager.giveInputClick);
                 _currentIndex++;
                 UIManager.Instance.ChangeOutlinePosition();
             }
@@ -79,6 +87,7 @@ public class InputHolder : MonoBehaviour
                 UIManager.Instance.OutlineForInputHandleUI.enabled = false;
                 _goButton.GetComponent<Animator>().SetTrigger("Go");
                 _goButton.GetComponent<UnityEngine.UI.Button>().interactable = true;
+                _audioManager.PlayAudioClip(_audioManager.goButtonFlick);
                 isInputsFilled = true;
             }
         }
@@ -90,6 +99,7 @@ public class InputHolder : MonoBehaviour
                 inputs[_currentIndex] = InputTypes.Down;
                 UIManager.Instance.uiInputLockedImages[_currentIndex].sprite = UIManager.Instance.DownArrowKey;
                 particles[_currentIndex].Play();
+                _audioManager.PlayAudioClip(_audioManager.giveInputClick);
                 _currentIndex++;
                 UIManager.Instance.ChangeOutlinePosition();
             }
@@ -99,6 +109,7 @@ public class InputHolder : MonoBehaviour
                 UIManager.Instance.OutlineForInputHandleUI.enabled = false;
                 _goButton.GetComponent<Animator>().SetTrigger("Go");
                 _goButton.GetComponent<UnityEngine.UI.Button>().interactable = true;
+                _audioManager.PlayAudioClip(_audioManager.goButtonFlick);
                 isInputsFilled = true;
             }
         }
@@ -108,5 +119,6 @@ public class InputHolder : MonoBehaviour
     {
         _currentIndex = 0;
         isInputsFilled = false;
+        _audioManager.PlayAudioClip(_audioManager.resetButtonClick);
     }
 }
