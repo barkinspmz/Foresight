@@ -43,6 +43,8 @@ public class GameplayManager : MonoBehaviour
     public int targetPlatformIndexToPassLevel;
 
     private AudioManager _audioManager;
+
+    public bool _isGameStarted;
     private void Awake()
     {
         Instance = this;
@@ -71,6 +73,7 @@ public class GameplayManager : MonoBehaviour
             _goButton.GetComponent<Animator>().SetTrigger("Out");
             StartCoroutine(MovementFromTakenInput());
             _playerMovement._isGameStarted = true;
+            _isGameStarted = true;
         }
     }
 

@@ -26,6 +26,16 @@ public class InputHolder : MonoBehaviour
     }
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Return))
+        {
+            if (_currentIndex >= LevelRequirements.Instance.howManyInputPlayerCanPress)
+            {
+                if(!GameplayManager.Instance._isGameStarted)
+                {
+                    GameplayManager.Instance.MovementBasedOnInput();
+                }
+            }
+        }
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             if (_currentIndex < LevelRequirements.Instance.howManyInputPlayerCanPress)
