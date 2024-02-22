@@ -43,6 +43,12 @@ public class InputHolder : MonoBehaviour
             {
                 if (!GameplayManager.Instance._isGameStarted)
                 {
+                    if (_currentIndex == LevelRequirements.Instance.howManyInputPlayerCanPress) // closes go button if true
+                    {
+                        _goButton.GetComponent<Animator>().SetTrigger("Out");
+                        _goButton.GetComponent<UnityEngine.UI.Button>().interactable = false;
+                        isInputsFilled = false;
+                    }
                     _currentIndex--;
                     UIManager.Instance.uiInputLockedImages[_currentIndex].sprite = UIManager.Instance.emptyImage;
                     UIManager.Instance.ChangeOutLinePositionOneBlockBack();
