@@ -26,6 +26,36 @@ public class InputHolder : MonoBehaviour
     }
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Return))
+        {
+            if (_currentIndex >= LevelRequirements.Instance.howManyInputPlayerCanPress)
+            {
+                if(!GameplayManager.Instance._isGameStarted)
+                {
+                    GameplayManager.Instance.MovementBasedOnInput();
+                }
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+            if (_currentIndex > 0) 
+            {
+                if (!GameplayManager.Instance._isGameStarted)
+                {
+                    if (_currentIndex == LevelRequirements.Instance.howManyInputPlayerCanPress) // closes go button if true
+                    {
+                        _goButton.GetComponent<Animator>().SetTrigger("Out");
+                        _goButton.GetComponent<UnityEngine.UI.Button>().interactable = false;
+                        isInputsFilled = false;
+                    }
+                    _currentIndex--;
+                    UIManager.Instance.uiInputLockedImages[_currentIndex].sprite = UIManager.Instance.emptyImage;
+                    UIManager.Instance.ChangeOutLinePositionOneBlockBack();
+                    //Play sound & efects here
+                }
+            }           
+        }
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             if (_currentIndex < LevelRequirements.Instance.howManyInputPlayerCanPress)
