@@ -36,6 +36,20 @@ public class InputHolder : MonoBehaviour
                 }
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+            if (_currentIndex > 0) 
+            {
+                if (!GameplayManager.Instance._isGameStarted)
+                {
+                    _currentIndex--;
+                    UIManager.Instance.uiInputLockedImages[_currentIndex].sprite = UIManager.Instance.emptyImage;
+                    UIManager.Instance.ChangeOutLinePositionOneBlockBack();
+                    //Play sound & efects here
+                }
+            }           
+        }
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             if (_currentIndex < LevelRequirements.Instance.howManyInputPlayerCanPress)

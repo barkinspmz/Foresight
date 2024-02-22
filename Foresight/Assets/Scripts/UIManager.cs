@@ -56,6 +56,12 @@ public class UIManager : MonoBehaviour
         OutlineForInputHandleUI.rectTransform.anchoredPosition = new Vector3(OutlineForInputHandleUI.rectTransform.anchoredPosition.x + 110, OutlineForInputHandleUI.rectTransform.anchoredPosition.y, OutlineForInputHandleUI.rectTransform.position.z);
     }
 
+    public void ChangeOutLinePositionOneBlockBack()
+    {
+        OutlineForInputHandleUI.rectTransform.anchoredPosition = new Vector3(OutlineForInputHandleUI.rectTransform.anchoredPosition.x - 110, OutlineForInputHandleUI.rectTransform.anchoredPosition.y, OutlineForInputHandleUI.rectTransform.position.z);
+
+    }
+
     private void ClearAllImages()
     {
         for (int i = 0; i < uiInputLockedImages.Length; i++)
